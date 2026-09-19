@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RoboForge Academy | Learn. Build. Innovate.</title>
+  <meta name="description" content="Learn robotics, Arduino, ESP32, electronics and build real-world projects with RoboForge Academy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: #0d1b2e;
+      --panel-2: #10243b;
+      --text: #f5f9ff;
+      --muted: #a7b8cc;
+      --primary: #42b8ff;
+      --secondary: #7c6cff;
+      --accent: #6df5c1;
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, sans-serif;
+      background: radial-gradient(circle at top right, #12385b 0, var(--bg) 38%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(1120px, 92%); margin: auto; }
+    .btn {
+      display: inline-block; padding: 13px 20px; border-radius: 12px;
+      font-weight: 700; border: 1px solid transparent; cursor: pointer;
+      transition: .25s ease;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+    .btn-outline { border-color: var(--border); background: rgba(255,255,255,.04); }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    .section { padding: 88px 0; }
+    .section-heading { max-width: 680px; margin-bottom: 35px; }
+    .eyebrow { color: var(--accent); font-size: .8rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+    h1 { font-size: clamp(2.4rem, 6vw, 5rem); line-height: 1.03; letter-spacing: -2px; }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; }
+    h3 { line-height: 1.25; }
+    .muted { color: var(--muted); }
+
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(7,17,31,.82); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { font-size: 1.15rem; font-weight: 800; letter-spacing: -.5px; }
+    .logo span { color: var(--primary); }
+    nav { display: flex; gap: 22px; align-items: center; }
+    nav a { color: var(--muted); font-size: .9rem; font-weight: 600; }
+    nav a:hover { color: white; }
+    .menu { display: none; background: none; color: white; border: 0; font-size: 1.6rem; }
+
+    .hero { padding: 92px 0 70px; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 45px; }
+    .hero h1 { margin: 16px 0 22px; }
+    .gradient-text { background: linear-gradient(90deg, var(--primary), var(--accent)); -webkit-background-clip: text; color: transparent; }
+    .hero p { max-width: 590px; font-size: 1.05rem; color: var(--muted); }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+    .stats { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 38px; }
+    .stat strong { display: block; font-size: 1.5rem; }
+    .stat span { color: var(--muted); font-size: .82rem; }
+    .hero-art {
+      min-height: 410px; border: 1px solid var(--border); border-radius: 28px;
+      background: linear-gradient(145deg, rgba(66,184,255,.18), rgba(124,108,255,.13));
+      box-shadow: var(--shadow); display: grid; place-items: center; position: relative; overflow: hidden;
+    }
+    .hero-art::before, .hero-art::after {
+      content: ""; position: absolute; border: 1px solid rgba(109,245,193,.25);
+      border-radius: 50%; width: 300px; height: 300px;
+    }
+    .hero-art::after { width: 440px; height: 440px; }
+    .robot { font-size: 9rem; z-index: 1; filter: drop-shadow(0 0 25px rgba(66,184,255,.45)); }
+    .floating-label {
+      position: absolute; z-index: 2; padding: 10px 13px; border-radius: 12px;
+      background: rgba(7,17,31,.88); border: 1px solid var(--border); font-size: .8rem;
+    }
+    .label-one { top: 28px; left: 25px; }
+    .label-two { bottom: 30px; right: 25px; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card {
+      background: linear-gradient(160deg, rgba(16,36,59,.95), rgba(13,27,46,.95));
+      border: 1px solid var(--border); border-radius: 18px; overflow: hidden;
+      box-shadow: 0 10px 35px rgba(0,0,0,.12);
+    }
+    .card-image { height: 180px; display: grid; place-items: center; font-size: 4.5rem; background: linear-gradient(135deg, #153a58, #20234d); }
+    .card-content { padding: 22px; }
+    .card-content h3 { margin-bottom: 9px; }
+    .card-content p { color: var(--muted); font-size: .9rem; }
+    .card-bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 22px; }
+    .price { font-size: 1.3rem; font-weight: 800; }
+    .small-btn { padding: 9px 12px; font-size: .82rem; }
+
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .feature { padding: 24px; border: 1px solid var(--border); border-radius: 16px; background: rgba(255,255,255,.035); }
+    .feature-icon { font-size: 1.7rem; margin-bottom: 12px; }
+    .feature p { color: var(--muted); font-size: .9rem; margin-top: 7px; }
+
+    .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .project {
+      border-radius: 18px; overflow: hidden; border: 1px solid var(--border);
+      background: var(--panel);
+    }
+    .project-visual { min-height: 210px; display: grid; place-items: center; font-size: 5rem; background: linear-gradient(135deg, #1c4259, #28234d); }
+    .project-body { padding: 20px; }
+    .project-body p { color: var(--muted); font-size: .9rem; margin-top: 7px; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .about-panel { padding: 32px; border-radius: 22px; background: linear-gradient(145deg, #102b45, #151b3c); border: 1px solid var(--border); }
+    .checklist { list-style: none; margin-top: 22px; display: grid; gap: 12px; }
+    .checklist li::before { content: "✓"; color: var(--accent); font-weight: 800; margin-right: 10px; }
+
+    .contact-form { max-width: 650px; display: grid; gap: 14px; }
+    input, textarea {
+      width: 100%; padding: 14px 15px; border-radius: 12px; border: 1px solid var(--border);
+      background: #091728; color: white; font: inherit;
+    }
+    textarea { min-height: 140px; resize: vertical; }
+    input:focus, textarea:focus { outline: 2px solid var(--primary); }
+    footer { border-top: 1px solid var(--border); padding: 28px 0; color: var(--muted); font-size: .85rem; }
+    .footer-row { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; }
+
+    @media (max-width: 800px) {
+      nav { display: none; position: absolute; top: 76px; left: 0; right: 0; padding: 20px 4%; background: #081526; flex-direction: column; align-items: flex-start; border-bottom: 1px solid var(--border); }
+      nav.open { display: flex; }
+      .menu { display: block; }
+      .hero-grid, .about-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 55px; }
+      .hero-art { min-height: 300px; }
+      .cards, .features, .project-grid { grid-template-columns: 1fr; }
+      .section { padding: 65px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#home" class="logo">⚙ ROBO<span>FORGE</span></a>
+      <button class="menu" id="menuButton" aria-label="Open navigation">☰</button>
+      <nav id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#courses">Courses</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Robotics Education Academy</div>
+          <h1>Learn Robotics.<br><span class="gradient-text">Build The Future.</span></h1>
+          <p>Master Arduino, ESP32, electronics, sensors and real-world robotics projects through practical, beginner-friendly courses.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#courses">Explore Courses →</a>
+            <a class="btn btn-outline" href="#projects">View Projects</a>
+          </div>
+          <div class="stats">
+            <div class="stat"><strong>100%</strong><span>Practical learning</span></div>
+            <div class="stat"><strong>Beginner</strong><span>Friendly lessons</span></div>
+            <div class="stat"><strong>Real</strong><span>Hands-on projects</span></div>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Robotics illustration">
+          <div class="floating-label label-one">⚡ Arduino + ESP32</div>
+          <div class="robot">🤖</div>
+          <div class="floating-label label-two">Build • Code • Innovate</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="courses">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Learn By Doing</div>
+          <h2>Featured Courses</h2>
+          <p class="muted">Start from the fundamentals and progress toward exciting robotics builds.</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div class="card-image">🔌</div>
+            <div class="card-content">
+              <h3>Arduino & Electronics</h3>
+              <p>Understand components, circuits, sensors, LEDs and your first Arduino programs.</p>
+              <div class="card-bottom"><span class="price">₹499</span><button class="btn btn-primary small-btn" data-course="Arduino & Electronics">Enroll</button></div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-image">📡</div>
+            <div class="card-content">
+              <h3>ESP32 & Smart Projects</h3>
+              <p>Learn ESP32, wireless communication, automation and IoT fundamentals.</p>
+              <div class="card-bottom"><span class="price">₹799</span><button class="btn btn-primary small-btn" data-course="ESP32 & Smart Projects">Enroll</button></div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-image">🦾</div>
+            <div class="card-content">
+              <h3>Build a Robotic Arm</h3>
+              <p>Control servo motors and create a working robotic arm step by step.</p>
+              <div class="card-bottom"><span class="price">₹999</span><button class="btn btn-primary small-btn" data-course="Build a Robotic Arm">Enroll</button></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Why Learn With Us?</div>
+          <h2>Skills That Become Real Projects</h2>
+        </div>
+        <div class="features">
+          <div class="feature"><div class="feature-icon">🧠</div><h3>Simple Explanations</h3><p>Learn difficult concepts through easy, step-by-step lessons.</p></div>
+          <div class="feature"><div class="feature-icon">🛠️</div><h3>Practical Building</h3><p>Turn your knowledge into working robots and electronic systems.</p></div>
+          <div class="feature"><div class="feature-icon">🚀</div><h3>Project Confidence</h3><p>Build a portfolio of projects that demonstrates your skills.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Our Work</div>
+          <h2>Robotics Project Gallery</h2>
+          <p class="muted">Replace these sample illustrations with photos of your own projects.</p>
+        </div>
+        <div class="project-grid">
+          <article class="project"><div class="project-visual">🚗</div><div class="project-body"><h3>Obstacle Avoiding Robot</h3><p>Ultrasonic sensing, motor control and autonomous movement.</p></div></article>
+          <article class="project"><div class="project-visual">🦾</div><div class="project-body"><h3>Servo Robotic Arm</h3><p>Precision movement using servo motors and a controller.</p></div></article>
+          <article class="project"><div class="project-visual">💡</div><div class="project-body"><h3>Smart Light System</h3><p>Sensor-based lighting and wireless ESP32 control.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div>
+          <div class="eyebrow">About The Academy</div>
+          <h2>From Curiosity To Creation</h2>
+          <p class="muted" style="margin-top:18px;">RoboForge Academy helps students explore robotics through accessible lessons, practical experiments and project-based learning.</p>
+          <ul class="checklist">
+            <li>Beginner-friendly teaching</li>
+            <li>Hands-on electronics and coding</li>
+            <li>Projects designed for learning</li>
+            <li>Learning at your own pace</li>
+          </ul>
+        </div>
+        <div class="about-panel">
+          <div class="eyebrow">Our Mission</div>
+          <h3 style="font-size:1.6rem;margin-top:10px;">Make robotics understandable for everyone.</h3>
+          <p class="muted" style="margin-top:12px;">You don't need to know everything before starting. Begin with one component, one line of code and one project at a time.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Let's Connect</div>
+          <h2>Have A Question?</h2>
+          <p class="muted">Send a message to ask about courses, projects or collaboration.</p>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <input type="text" id="name" placeholder="Your name" required />
+          <input type="email" id="email" placeholder="Your email" required />
+          <textarea id="message" placeholder="Your message" required></textarea>
+          <button class="btn btn-primary" type="submit">Send Message</button>
+          <p class="muted" id="formMessage" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>© <span id="year"></span> RoboForge Academy</span>
+      <span>Learn. Build. Innovate.</span>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
+    menuButton.addEventListener("click", () => navLinks.classList.toggle("open"));
+
+    document.querySelectorAll("nav a").forEach(link => {
+      link.addEventListener("click", () => navLinks.classList.remove("open"));
+    });
+
+    document.querySelectorAll("[data-course]").forEach(button => {
+      button.addEventListener("click", () => {
+        const course = button.dataset.course;
+        alert("Demo enrollment selected: " + course + "\\n\\nConnect a payment gateway before accepting real payments.");
+      });
+    });
+
+    document.getElementById("contactForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      document.getElementById("formMessage").textContent =
+        "Demo message received in this browser. Connect a backend or form service to send real messages.";
+      event.target.reset();
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
